@@ -13,7 +13,7 @@
       overflow: hidden;
     }
 
-    /* Main Question Screen */
+    /* ===== QUESTION SCREEN ===== */
     .container {
       position: fixed;
       inset: 0;
@@ -39,6 +39,7 @@
       display: flex;
       justify-content: center;
       gap: 20px;
+      position: relative;
     }
 
     button {
@@ -47,6 +48,7 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
+      position: relative;
     }
 
     .yes {
@@ -59,7 +61,7 @@
       color: #fff;
     }
 
-    /* Floating emojis */
+    /* ===== FLOATING EMOJIS ===== */
     .emoji {
       position: absolute;
       font-size: 2rem;
@@ -73,7 +75,21 @@
       100% { transform: translateY(0); }
     }
 
-    /* YES Screen */
+    /* ===== HEARTBEAT (MOBILE ONLY) ===== */
+    @media (hover: none) {
+      .yes:active {
+        animation: heartbeat 0.6s ease;
+      }
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1); }
+      30%  { transform: scale(1.15); }
+      60%  { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* ===== YES SCREEN ===== */
     .celebration {
       display: none;
       position: fixed;
@@ -88,16 +104,22 @@
       z-index: 10;
     }
 
-    /* NO Screen */
+    /* ===== NO SCREEN ===== */
     .ghost {
       display: none;
       position: fixed;
       inset: 0;
       background: #000;
-      display: flex;
       justify-content: center;
       align-items: center;
       z-index: 10;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .ghost.show {
+      display: flex;
+      opacity: 1;
     }
 
     .ghost img {
@@ -111,13 +133,14 @@
 
 <body>
 
-  <!-- Question -->
+  <!-- QUESTION -->
   <div class="container" id="question">
     <div class="card">
       <h1>Will you be my Valentine? 💖</h1>
+
       <div class="buttons">
         <button class="yes" onclick="sayYes()">Yes</button>
-        <button class="no" onclick="sayNo()">No</button>
+        <button class="no" id="noBtn">No</button>
       </div>
     </div>
 
@@ -128,13 +151,13 @@
     <div class="emoji" style="bottom:15%; right:30%;">💗</div>
   </div>
 
-  <!-- YES -->
+  <!-- YES SCREEN -->
   <div class="celebration" id="celebration">
     <div>YAYYY 💚</div>
     <div>🎉🌸✨</div>
   </div>
 
-  <!-- NO -->
+  <!-- NO SCREEN -->
   <div class="ghost" id="ghost">
     <img src="ghost.png" alt="ghost" />
   </div>
@@ -147,8 +170,21 @@
 
     function sayNo() {
       document.getElementById("question").style.display = "none";
-      document.getElementById("ghost").style.display = "flex";
+      document.getElementById("ghost").classList.add("show");
     }
+
+    /* NO button dodge logic */
+    const noBtn = document.getElementById("noBtn");
+
+    function moveButton() {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+    noBtn.addEventListener("click", sayNo);
   </script>
 
 </body>
