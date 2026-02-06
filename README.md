@@ -1,5 +1,6 @@
 # Valentine-shiffu
 Choose
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +25,7 @@ Choose
       justify-content: center;
       align-items: center;
       text-align: center;
+      z-index: 1;
     }
 
     .card {
@@ -77,7 +79,7 @@ Choose
       100% { transform: translateY(0); }
     }
 
-    /* HEARTBEAT */
+    /* HEARTBEAT (MOBILE ONLY) */
     @media (hover: none) {
       .yes.active {
         animation: heartbeat 0.6s ease;
@@ -98,7 +100,6 @@ Choose
       inset: 0;
       background: #2ecc71;
       color: #0b3d1f;
-      display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -145,4 +146,55 @@ Choose
       <h1>Will you be my Valentine? 💖</h1>
 
       <div class="buttons">
-        <button class="yes" id
+        <button class="yes" id="yesBtn">Yes</button>
+        <button class="no" id="noBtn">No</button>
+      </div>
+    </div>
+
+    <div class="emoji" style="top:10%; left:15%;">💖</div>
+    <div class="emoji" style="top:20%; right:20%;">🌸</div>
+    <div class="emoji" style="bottom:20%; left:25%;">✨</div>
+    <div class="emoji" style="bottom:15%; right:30%;">💗</div>
+  </div>
+
+  <!-- YES -->
+  <div class="celebration" id="celebration">
+    <div>YAYYY 💚</div>
+    <div>🎉🌸✨</div>
+  </div>
+
+  <!-- NO -->
+  <div class="ghost" id="ghost">
+    <img src="ghost.png" alt="ghost" />
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    yesBtn.addEventListener("click", () => {
+      yesBtn.classList.add("active");
+      setTimeout(() => {
+        document.getElementById("question").style.display = "none";
+        document.getElementById("celebration").classList.add("show");
+      }, 300);
+    });
+
+    function moveButton() {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+
+    noBtn.addEventListener("click", () => {
+      document.getElementById("question").style.display = "none";
+      document.getElementById("ghost").classList.add("show");
+    });
+  </script>
+
+</body>
+</html>
+
