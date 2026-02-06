@@ -1,2 +1,193 @@
 # Valentine-shiffu
 Choose
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine?</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== QUESTION SCREEN ===== */
+    .container {
+      position: fixed;
+      inset: 0;
+      background: #ffb6c1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 30px;
+      color: #4a0033;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .yes {
+      background: #2ecc71;
+      color: #0b3d1f;
+    }
+
+    .no {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    /* ===== FLOATING EMOJIS ===== */
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ===== HEARTBEAT (MOBILE ONLY) ===== */
+    @media (hover: none) {
+      .yes:active {
+        animation: heartbeat 0.6s ease;
+      }
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1); }
+      30%  { transform: scale(1.15); }
+      60%  { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* ===== YES SCREEN ===== */
+    .celebration {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #2ecc71;
+      color: #0b3d1f;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      z-index: 10;
+    }
+
+    /* ===== NO SCREEN ===== */
+    .ghost {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .ghost.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .ghost img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(120%);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- QUESTION -->
+  <div class="container" id="question">
+    <div class="card">
+      <h1>Will you be my Valentine? 💖</h1>
+
+      <div class="buttons">
+        <button class="yes" onclick="sayYes()">Yes</button>
+        <button class="no" id="noBtn">No</button>
+      </div>
+    </div>
+
+    <!-- Floating emojis -->
+    <div class="emoji" style="top:10%; left:15%;">💖</div>
+    <div class="emoji" style="top:20%; right:20%;">🌸</div>
+    <div class="emoji" style="bottom:20%; left:25%;">✨</div>
+    <div class="emoji" style="bottom:15%; right:30%;">💗</div>
+  </div>
+
+  <!-- YES SCREEN -->
+  <div class="celebration" id="celebration">
+    <div>YAYYY 💚</div>
+    <div>🎉🌸✨</div>
+  </div>
+
+  <!-- NO SCREEN -->
+  <div class="ghost" id="ghost">
+    <img src="ghost.png" alt="ghost" />
+  </div>
+
+  <script>
+    function sayYes() {
+      document.getElementById("question").style.display = "none";
+      document.getElementById("celebration").style.display = "flex";
+    }
+
+    function sayNo() {
+      document.getElementById("question").style.display = "none";
+      document.getElementById("ghost").classList.add("show");
+    }
+
+    /* NO button dodge logic */
+    const noBtn = document.getElementById("noBtn");
+
+    function moveButton() {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+    noBtn.addEventListener("click", sayNo);
+  </script>
+
+</body>
+</html>
