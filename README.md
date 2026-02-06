@@ -15,7 +15,7 @@ Choose
       overflow: hidden;
     }
 
-    /* ===== QUESTION SCREEN ===== */
+    /* QUESTION SCREEN */
     .container {
       position: fixed;
       inset: 0;
@@ -50,7 +50,6 @@ Choose
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      position: relative;
     }
 
     .yes {
@@ -61,9 +60,10 @@ Choose
     .no {
       background: #e74c3c;
       color: #fff;
+      position: relative;
     }
 
-    /* ===== FLOATING EMOJIS ===== */
+    /* FLOATING EMOJIS */
     .emoji {
       position: absolute;
       font-size: 2rem;
@@ -72,32 +72,33 @@ Choose
     }
 
     @keyframes float {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-40px); }
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
       100% { transform: translateY(0); }
     }
 
-    /* ===== HEARTBEAT (MOBILE ONLY) ===== */
+    /* HEARTBEAT */
     @media (hover: none) {
-      .yes:active {
+      .yes.active {
         animation: heartbeat 0.6s ease;
       }
     }
 
     @keyframes heartbeat {
-      0%   { transform: scale(1); }
-      30%  { transform: scale(1.15); }
-      60%  { transform: scale(0.95); }
+      0% { transform: scale(1); }
+      30% { transform: scale(1.15); }
+      60% { transform: scale(0.95); }
       100% { transform: scale(1); }
     }
 
-    /* ===== YES SCREEN ===== */
+    /* YES SCREEN */
     .celebration {
       display: none;
       position: fixed;
       inset: 0;
       background: #2ecc71;
       color: #0b3d1f;
+      display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -109,7 +110,7 @@ Choose
       display: flex;
     }
 
-    /* ===== NO SCREEN ===== */
+    /* NO SCREEN */
     .ghost {
       display: none;
       position: fixed;
@@ -144,19 +145,4 @@ Choose
       <h1>Will you be my Valentine? 💖</h1>
 
       <div class="buttons">
-        <button class="yes" onclick="sayYes()">Yes</button>
-        <button class="no" id="noBtn">No</button>
-      </div>
-    </div>
-
-    <!-- Floating emojis -->
-    <div class="emoji" style="top:10%; left:15%;">💖</div>
-    <div class="emoji" style="top:20%; right:20%;">🌸</div>
-    <div class="emoji" style="bottom:20%; left:25%;">✨</div>
-    <div class="emoji" style="bottom:15%; right:30%;">💗</div>
-  </div>
-
-  <!-- YES -->
-  <div class="celebration" id="celebration">
-    <div>YAYY
-
+        <button class="yes" id
