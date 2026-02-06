@@ -98,12 +98,15 @@ Choose
       inset: 0;
       background: #2ecc71;
       color: #0b3d1f;
-      display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       font-size: 2.5rem;
       z-index: 10;
+    }
+
+    .celebration.show {
+      display: flex;
     }
 
     /* ===== NO SCREEN ===== */
@@ -153,41 +156,7 @@ Choose
     <div class="emoji" style="bottom:15%; right:30%;">💗</div>
   </div>
 
-  <!-- YES SCREEN -->
+  <!-- YES -->
   <div class="celebration" id="celebration">
-    <div>YAYYY 💚</div>
-    <div>🎉🌸✨</div>
-  </div>
+    <div>YAYY
 
-  <!-- NO SCREEN -->
-  <div class="ghost" id="ghost">
-    <img src="ghost.png" alt="ghost" />
-  </div>
-
-  <script>
-    function sayYes() {
-      document.getElementById("question").style.display = "none";
-      document.getElementById("celebration").style.display = "flex";
-    }
-
-    function sayNo() {
-      document.getElementById("question").style.display = "none";
-      document.getElementById("ghost").classList.add("show");
-    }
-
-    /* NO button dodge logic */
-    const noBtn = document.getElementById("noBtn");
-
-    function moveButton() {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
-
-    noBtn.addEventListener("mouseover", moveButton);
-    noBtn.addEventListener("touchstart", moveButton);
-    noBtn.addEventListener("click", sayNo);
-  </script>
-
-</body>
-</html>
